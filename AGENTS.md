@@ -17,11 +17,11 @@ Researcher, then Simulation Developer, then Evaluator.  The Evaluator returns pr
 
 ## Ownership
 
-- Valerie (Person 1):  Researcher, Evaluator.
-- Anastasiya (Person 2):  Simulation Developer.
+- Valerie (Person 1):  Researcher, Evaluator, baseline history test.
+- Anastasiya (Person 2):  Simulation Developer, parameter table validator.
 - Together:  the parameter table format (written first), the harness, the presentation.
 
-Proposed, waiting for Anastasiya's yes:
+Also agreed:
 
 - The harness is pair-programmed from 16:00 to 18:00 ET, and the revision loop stops after 3 rounds and reports to both of us.
 - Each of us writes the code check for the other's output.  Anastasiya writes the parameter table validator (every parameter has a source and a range).  Valerie writes the baseline history test (the model reproduces the lynx's known population history within a tolerance set before any run).

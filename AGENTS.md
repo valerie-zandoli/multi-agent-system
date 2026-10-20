@@ -38,7 +38,7 @@ Run the black-footed ferret and prairie dog with the same model template.  It pa
 - A prompt asks; code guarantees.  Any rule that must always hold goes in code with a test, and the design notes which of the two enforces it.
 - Never commit keys, `.env`, or private data.  This repository is public.
 
-## Setup (to be filled in)
+## Setup
 
-- Python version:  to be agreed.
-- Test command:  to be agreed.
+- Python version:  3.12.  The Mac default `python3` is 3.9, which we do not use.
+- Test command:  `python -m pytest`, run inside the virtual environment.  The setup steps are in the README.

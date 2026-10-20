@@ -1,0 +1,19 @@
+# Secrets (this repo is public; never commit keys)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+token.json
+credentials.json
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local tool settings and OS files
+.claude/settings.local.json
+.DS_Store

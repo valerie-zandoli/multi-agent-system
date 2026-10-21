@@ -33,7 +33,8 @@ Run the black-footed ferret and prairie dog with the same model template.  It pa
 ## Working rules
 
 - Ask "push or wait?" before changing a shared file.
-- Work on separate branches and in separate files; review each other through pull requests.
+- Draft work goes on your own branch (`dev-valerie`, `dev-anastasiya`).  Changes reach `main` only through a pull request, after the tests pass and the other person reviews it.  Do not push unproven work to `main`.
+- Work in separate files; review each other through pull requests.
 - Write the interfaces between the agents before anyone builds.
 - A prompt asks; code guarantees.  Any rule that must always hold goes in code with a test, and the design notes which of the two enforces it.
 - Never commit keys, `.env`, or private data.  This repository is public.

@@ -1,4 +1,4 @@
-# multi-agent-system
+# Project Resurrection
 Cycle 3 multi-agent system, Pursuit L2
 
 Single-species survival modeling for the Iberian lynx and its prey, the European rabbit.  Three agents (Researcher, Simulation Developer, Evaluator) estimate how food availability and habitat quality affect whether the population persists.  The project rules for coding tools are in `AGENTS.md`.

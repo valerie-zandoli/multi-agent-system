@@ -54,7 +54,9 @@ issues need developer changes; each issue includes a code, message, and requeste
 change. `stop` is required if unresolved issues remain at revision round 3.
 Round 0 is the initial attempt; rounds 1–3 are revisions. On stop, the harness
 must report to both teammates. Those behavioral rules require harness tests;
-the schemas only constrain round numbers and field shapes.
+the schemas constrain round numbers, field shapes, and the link between the status
+and its evidence (a `pass` lists no issue and no failed check; a `revise` lists at
+least one issue).
 
 This version is for synthetic experiments. `historical_validation: not_assessed`
 prevents an example format check from implying a historical fit. Historical

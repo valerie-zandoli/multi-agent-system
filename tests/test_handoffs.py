@@ -80,3 +80,48 @@ def test_results_config_requires_the_hashes():
     del result["config"]["parameters_sha256"]
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(result, load("schema", "results"))
+
+
+@pytest.mark.parametrize("value", [None, "true", 0, 1])
+def test_settled_must_be_boolean(value):
+    result = load("example", "results")
+    result["final_animals"][0]["settled"] = value
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(result, load("schema", "results"))
+
+
+def test_settled_is_required_without_pair_only_fallback():
+    result = load("example", "results")
+    del result["final_animals"][0]["settled"]
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(result, load("schema", "results"))
+
+
+@pytest.mark.parametrize("sex,alive", [("male", True), ("male", False), ("female", False)])
+def test_only_living_females_can_hold_territories(sex, alive):
+    result = load("example", "results")
+    result["final_animals"][0].update(sex=sex, alive=alive, settled=True)
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(result, load("schema", "results"))
+
+
+def test_unsettled_living_female_and_dead_former_holder_are_valid_states():
+    result = load("example", "results")
+    result["final_animals"][0]["settled"] = False
+    result["final_animals"][1].update(alive=False, settled=False)
+    # Structural acceptance only; accounting and persisted need independent checks.
+    jsonschema.validate(result, load("schema", "results"))
+
+
+def test_old_results_version_is_rejected():
+    result = load("example", "results")
+    result["schema_version"] = "1.0"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(result, load("schema", "results"))
+
+
+def test_sample_has_five_settled_females_per_patch_and_no_settled_males():
+    animals = load("example", "results")["final_animals"]
+    for patch in ("A", "B"):
+        assert sum(a["settled"] for a in animals if a["patch_id"] == patch) == 5
+    assert all(not a["settled"] for a in animals if a["sex"] == "male")

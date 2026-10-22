@@ -105,5 +105,20 @@
     "checks",
     "historical_validation"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "pass"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "issues": {"maxItems": 0},
+          "checks": {"items": {"properties": {"passed": {"const": true}}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "revise"}}, "required": ["status"]},
+      "then": {"properties": {"issues": {"minItems": 1}}}
+    }
+  ]
 }

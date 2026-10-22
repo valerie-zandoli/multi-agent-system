@@ -26,10 +26,22 @@ experiment duration is 120 months, but the example uses one month for inspection
 Record the random seed and full configuration in results. Reproduction rules,
 food/habitat effects, and any parameter overrides need agreement before runs.
 
-The proposed persistence rule is a living breeding-capable male and female in
-at least one shared patch at the endpoint. Determine breeding eligibility from
-the parameter specification; this is an endpoint measure, not long-term viability.
-Valerie must review this definition before experiments.
+Persistence is true when, at the endpoint (month `duration_months`), the run holds
+at least one living female and one living male that are both of breeding age, are
+in the same patch, and where the female holds a territory. Breeding age runs from
+`breeding_age_min` to `breeding_age_max` in the parameter table (baseline 3 to 9
+years); the male follows the same ages unless the table gives a separate male rule.
+The same patch matters because breeding needs an eligible male in the female's
+patch, and the territory matters because only a settled female breeds. This is an
+endpoint measure, not long-term viability; each run also reports the final
+population and the extinction month. Valerie chose this definition on 2026-10-22;
+Anastasiya has not yet confirmed it.
+
+Contract change needed: `final_animals` records no territory, and the schema allows
+no extra fields. Add a boolean `settled` (true for a female that holds a territory,
+false otherwise), so the Evaluator can recompute `persisted` from the final animal
+states. Until the field exists, a run reports persistence under the shorter rule (a
+breeding-age pair in one patch) and labels it as such.
 
 ## Results
 

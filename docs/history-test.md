@@ -32,15 +32,20 @@ Does the model, run with the Donana parameters, grow a population from the 2002 
 - Non-adults:  whole-month ages drawn uniformly from 0 to 35 months; the cub sex ratio of the table (1.03 females per male).
 - All draws use the run seed.  The synthetic 20-lynx start is a separate experiment and is never reused here.
 
-## The one open decision that can break the test
+## Open decision:  the usable area of the history run
 
-The usable area of the history run sets how many female territories exist (area divided by the 10 km2 home range).  By 2010 the count holds 44 adult females, so the area must allow at least 44 territories, that is 440 km2 or more.  With less, territory capacity and not mortality sets the growth, and the calibration means nothing.  The area of the Andujar-Cardena nucleus is not in our sources.  Decide whether to look it up or to set the area from the 44-female floor and say so.
+The usable area sets how many female territories exist (area divided by the 10 km2 home range).  The 2010 count gives 44 adult females, but that count does not show 44 territorial females, because the model lets living females stay unsettled.  So the count does not fix a minimum area.
+
+- If the usable area of the Andujar-Cardena nucleus can be sourced, use it and cite it.
+- Otherwise label the chosen area (and so the territory capacity) as an assumption, and calibrate at two or three areas to show how far the area moves the calibrated mortality.
+- A small capacity can limit growth and so affect the calibration; it does not by itself make the calibration meaningless.
 
 ## Calibration
 
 - Change one parameter only:  post-dispersal annual mortality (`annual_mortality_rate_all_causes`), searched from 0.10 to 0.50.  Every other parameter stays at its baseline.
 - Use 2002 to 2010 only.  Choose the mortality whose median growth is closest to 1.17.
-- Then run 2011 once.  Report pass or fail against the tolerance.  Do not re-calibrate after that run.
+- Then run one frozen held-out batch:  the same number of trials as the final runs (500), with a seed rule fixed before the run (each trial's seed comes from the run seed, the word "heldout", and the trial number).  Run the predefined ensemble through month 108.  Mortality and every other setting stay frozen after calibration.
+- The pass criterion is the median over the trials of that batch.  Report pass or fail against the tolerance.  Do not re-calibrate, and do not retune anything, after seeing the 2011 result.
 - A hand check with the published rates puts growth near 0.99 at mortality 0.37 and near 1.16 at 0.20.  This is arithmetic and not a simulation result.
 
 ## The report must say

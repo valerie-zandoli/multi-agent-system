@@ -62,6 +62,21 @@ comparison requires a separate agreed initialization, observation definition,
 calibration/validation split, and tolerance. Do not reuse the 20-lynx fixture as
 historical initialization.
 
+## Content hashes
+
+The inputs name the research files by path, and the Researcher can still edit them. A path alone does not say which version of a file a run used, so a run could be evaluated against a table it never read (a stale-data read).
+
+`input.json` therefore records `parameters_sha256` and `sources_sha256`, the content hashes of the two CSV files it names. A content hash is a short fingerprint of a file's contents. `results.json` carries the same values inside `config`, and `evaluation.json` carries them at the top level. Hashes ignore the CRLF/LF difference so every checkout agrees. The sample fixtures use all-zero placeholders; a real run computes them with `validators/handoff_hashes.py`.
+
+The harness must run two checks, which are code and not a prompt:
+
+- `check_handoff_hashes(input, results, evaluation)` before it accepts results and again before it accepts an evaluation. Any difference rejects the handoff.
+- `check_files_current(input, root)` at the start of every revision round. A changed file rejects the round.
+
+If the Researcher changes a CSV on purpose, that is not a revision of the old run. The harness starts a new run from a fresh `input.json` with new hashes and a new run ID.
+
+A hash proves two agents read the same file, not that the file is correct. Checking the table against its sources stays a separate job.
+
 ## Check contracts locally
 
 ```bash

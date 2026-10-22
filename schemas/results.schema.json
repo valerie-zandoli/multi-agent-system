@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Lynx results handoff v1",
+  "title": "Lynx results handoff v2",
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": "1.0"
+      "const": "2.0"
     },
     "run_id": {
       "type": "string",
@@ -217,6 +217,10 @@
           },
           "alive": {
             "type": "boolean"
+          },
+          "settled": {
+            "type": "boolean",
+            "description": "True only for a living female holding a territory at the endpoint. False for males, unsettled females, and dead animals."
           }
         },
         "required": [
@@ -224,9 +228,34 @@
           "sex",
           "age_months",
           "patch_id",
-          "alive"
+          "alive",
+          "settled"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "settled": {
+                  "const": true
+                }
+              },
+              "required": [
+                "settled"
+              ]
+            },
+            "then": {
+              "properties": {
+                "sex": {
+                  "const": "female"
+                },
+                "alive": {
+                  "const": true
+                }
+              }
+            }
+          }
+        ]
       },
       "minItems": 0
     },

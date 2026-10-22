@@ -30,7 +30,7 @@ class FakeResponse:
     def __exit__(self, *exc):
         return False
 
-    def read(self):
+    def read(self, size=-1):
         return json.dumps(self._payload).encode("utf-8")
 
 
@@ -131,7 +131,7 @@ def test_unexpected_payload_exits_4_without_false_success(tmp_path, capsys, payl
 @pytest.mark.parametrize("raw", [b"not json", b"\xff", b"{truncated"])
 def test_invalid_json_or_encoding_exits_4(tmp_path, capsys, raw):
     class RawResponse(FakeResponse):
-        def read(self):
+        def read(self, size=-1):
             return raw
 
     code = check_key.main(

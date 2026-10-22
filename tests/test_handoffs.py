@@ -58,3 +58,25 @@ def test_sample_population_accounting():
     for previous, current in zip(result["history"], result["history"][1:]):
         assert current["population"] == previous["population"] + current["births"] - current["deaths"]
         assert current["population"] == current["females"] + current["males"]
+
+
+@pytest.mark.parametrize("name,field", [("input", "parameters_sha256"), ("input", "sources_sha256"),
+                                        ("evaluation", "parameters_sha256"), ("evaluation", "sources_sha256")])
+def test_hash_fields_are_required_and_checked(name, field):
+    schema = load("schema", name)
+    missing = load("example", name)
+    del missing[field]
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(missing, schema)
+    for bad in ("abc", "G" * 64, "A" * 64):
+        wrong = load("example", name)
+        wrong[field] = bad
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(wrong, schema)
+
+
+def test_results_config_requires_the_hashes():
+    result = load("example", "results")
+    del result["config"]["parameters_sha256"]
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(result, load("schema", "results"))

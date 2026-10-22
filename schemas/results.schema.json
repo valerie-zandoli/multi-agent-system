@@ -55,9 +55,17 @@
           "type": "string",
           "minLength": 1
         },
+        "parameters_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
         "sources_csv": {
           "type": "string",
           "minLength": 1
+        },
+        "sources_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
         },
         "initial_population": {
           "type": "object",
@@ -127,7 +135,9 @@
         "duration_months",
         "start_month",
         "parameters_csv",
+        "parameters_sha256",
         "sources_csv",
+        "sources_sha256",
         "initial_population",
         "patches",
         "food_rabbits_per_ha",

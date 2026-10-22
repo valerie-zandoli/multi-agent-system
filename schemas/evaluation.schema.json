@@ -21,6 +21,14 @@
       "minimum": 0,
       "maximum": 3
     },
+    "parameters_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sources_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
     "status": {
       "enum": [
         "pass",
@@ -90,6 +98,8 @@
     "run_id",
     "data_kind",
     "revision_round",
+    "parameters_sha256",
+    "sources_sha256",
     "status",
     "issues",
     "checks",

@@ -9,6 +9,8 @@ This specification consolidates all four project tabs: **PRD: Net new build**,
 **PRD: New feature**, **Agent PRD: Net new build**, and **Agent PRD: New feature**.
 Strong PRD Example is reference material. Requirements are not evidence that the
 described runtime exists. Proposals below remain proposals until agreed.
+The persistence section also records the partners' later October 22 approval
+of territory settlement and the subsequent contract update in PR #39.
 
 ## Problem and users
 
@@ -108,13 +110,25 @@ time is empty when extinction has not occurred, rather than 120.
   shares are already within all-cause mortality; do not add them again.
 - Keep baselines configurable for sensitivity and historical calibration.
 
-### Persistence: proposed
+### Persistence: agreed October 22, 2026
 
-The current schema names `breeding_pair_same_patch_at_end`: a living,
-breeding-capable male and female share at least one patch at month 120. Confirm
-whether sufficient food is part of breeding capability before experiments.
-This endpoint does not establish long-term viability. The schema's rule name
-does not resolve this scientific interpretation.
+At month 120, persistence requires a living breeding-age female holding a
+territory and a living breeding-age male in the same patch. Food availability
+is excluded from endpoint eligibility and affects reproduction separately.
+Report births in the final 12 months alongside persistence. This endpoint does
+not establish long-term viability.
+
+Every final animal has a boolean `settled`. Starting females hold five territories
+per patch; young/unsettled females are false until dispersal and settlement.
+Males are false and use no female territory slots; persistence ignores that field
+for males. A female retains her territory while alive unless an agreed movement
+rule changes it. Death frees the slot and sets the value to false.
+
+[PR #39](https://github.com/valerie-zandoli/project-resurrection/pull/39) supplies
+results contract version 2.0, the required field, sample states, and structural
+tests. Old results without the field must not fall back to the weaker pair-only
+definition. Runtime settlement/capacity logic and Evaluator recomputation still
+need implementation. This PRD does not claim they exist.
 
 ## Separate historical comparison
 
@@ -269,7 +283,7 @@ PR #33 proposes survival → aging → settlement → male movement → March bi
 recording; uniform litter sizes 2–4; and Wilson intervals plus population and
 extinction summaries. These conventions are not yet agreed. Before experiments:
 
-- Confirm persistence, including food's role in breeding capability.
+- Implement the agreed persistence/settled contract and independent runtime checks.
 - Agree monthly ordering, litter sampling, historical initialization/usable
   area, observation/ensemble procedure, seed derivation, and aggregation.
 - Specify monthly settlement attempts after vacancies open, patch choices,

@@ -34,7 +34,11 @@ years); the male follows the same ages unless the table gives a separate male ru
 The same patch matters because breeding needs an eligible male in the female's
 patch, and the territory matters because only a settled female breeds. This is an
 endpoint measure, not long-term viability; each run also reports the final
-population and the extinction month. Valerie chose this definition on 2026-10-22;
+population and the extinction month. Food availability is not part of
+breeding capability, because the food level is the experimental input and
+counting it would make persistence follow from the setting; the births in the
+final 12 months, taken from `history`, sit beside persistence so that a pair
+that cannot breed is visible. Valerie chose this definition on 2026-10-22;
 Anastasiya has not yet confirmed it.
 
 Contract change needed: `final_animals` records no territory, and the schema allows

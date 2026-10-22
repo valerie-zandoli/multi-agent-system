@@ -4,7 +4,8 @@ Reviewed: October 22, 2026.
 Source: https://docs.google.com/document/d/1Hki-aSMezwRhHNW6Luye2z_ExSv5C_etIIxb4rqSoHc
 Source revision: AHj4eMQKlkrEzU4hHf-FSYO5I2ICf_ByQSo3q9TKoeT5N4GhDiFX09FsDOcwKLE6EkjTst4f3eexqVhmJt9yLUfrTYmiKus3WD_aBDu15_A
 Reviewed all four project tabs; the Strong PRD Example tab is reference material.
-Repository reference inspected: develop at cc3b8fc (not pulled into simulator).
+Repository reference inspected at the PRD review: develop at cc3b8fc.
+The simulator branch was subsequently updated to that revision.
 
 ## Changes to carry into implementation
 
@@ -47,8 +48,8 @@ is historical context, not a reason to revert the later user-approved rules.
 - Broken repository URLs contain `project-resurrectionmulti-agent-system` and
   a malformed `/pull/83`; replace with verified links in the documentation pass.
 - The appendix simultaneously lists explicit historical tolerances and says
-  tolerances are undecided. Record the explicit values as proposals pending the
-  owners' acceptance; do not invent that acceptance.
+  tolerances are undecided. The subsequent user conversation accepted the values
+  recorded in the skill; bring the PRD wording into agreement with that decision.
 - The zero-food edge case assumes extinction before month 120. A breeding-only
   cutoff does not guarantee that outcome in a finite stochastic run. Agree on a
   deterministic extinction fixture or test observed outcomes without forcing it.
@@ -69,7 +70,6 @@ requirements, repair stale links/text, and cross-reference existing architecture
 handoff, evaluation, execution, provider, and trace docs instead of duplicating
 inconsistent specifications. Record the source URL, revision, and sync date.
 
-Keep this task separate from simulator implementation and Valerie's two requested
-feature PRs. Do not claim the repository PRD is already synchronized: only this
-local skill draft and synchronization note have been updated. Anastasiya has now authorized the skill PR. Repository PRD synchronization
-remains a separate documentation task, not completed by this skill PR.
+Keep this task separate from simulator implementation. Anastasiya has authorized
+the skill PR; repository PRD synchronization remains a separate documentation
+task, not completed by this skill PR. The historical PR-split request was withdrawn.

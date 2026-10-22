@@ -77,7 +77,7 @@ def test_success_sends_the_key_and_model_and_never_prints_the_key(tmp_path, caps
 
 def test_environment_variable_is_the_fallback(tmp_path):
     def opener(request, timeout):
-        return FakeResponse({"content": []})
+        return FakeResponse({"content": [{"type": "text", "text": "Hello"}]})
 
     code = check_key.main(["--env", str(tmp_path / "none.env")], opener=opener, environ={"ANTHROPIC_API_KEY": FAKE_KEY})
     assert code == 0
@@ -104,3 +104,54 @@ def test_no_connection_exits_3(tmp_path, capsys):
     out = capsys.readouterr()
     assert code == 3
     assert FAKE_KEY not in out.out + out.err
+
+
+@pytest.mark.parametrize("payload", [
+    {}, [], None, {"content": None}, {"content": "not a list"},
+    {"content": []}, {"content": [None]},
+    {"content": [{"type": "text"}]},
+    {"content": [{"type": "text", "text": 123}]},
+    {"content": [{"type": "text", "text": "  "}]},
+    {"content": [{"type": "thinking", "thinking": "not the reply"}]},
+    {"error": {"message": FAKE_KEY}, "content": [{"type": "text", "text": "Hello"}]},
+])
+def test_unexpected_payload_exits_4_without_false_success(tmp_path, capsys, payload):
+    code = check_key.main(
+        ["--env", str(tmp_path / "missing.env")],
+        opener=lambda *a, **k: FakeResponse(payload),
+        environ={"ANTHROPIC_API_KEY": FAKE_KEY},
+    )
+    output = capsys.readouterr()
+    assert code == 4
+    assert "Invalid API response" in output.out
+    assert "OK:" not in output.out
+    assert FAKE_KEY not in output.out + output.err
+
+
+@pytest.mark.parametrize("raw", [b"not json", b"\xff", b"{truncated"])
+def test_invalid_json_or_encoding_exits_4(tmp_path, capsys, raw):
+    class RawResponse(FakeResponse):
+        def read(self):
+            return raw
+
+    code = check_key.main(
+        ["--env", str(tmp_path / "missing.env")],
+        opener=lambda *a, **k: RawResponse(None),
+        environ={"ANTHROPIC_API_KEY": FAKE_KEY},
+    )
+    output = capsys.readouterr()
+    assert code == 4
+    assert "Invalid API response" in output.out
+    assert "OK:" not in output.out
+    assert FAKE_KEY not in output.out + output.err
+
+
+def test_unexpected_http_status_is_not_success(tmp_path, capsys):
+    response = FakeResponse({"content": [{"type": "text", "text": "Hello"}]})
+    response.status = 503
+    assert check_key.main(
+        ["--env", str(tmp_path / "missing.env")],
+        opener=lambda *a, **k: response,
+        environ={"ANTHROPIC_API_KEY": FAKE_KEY},
+    ) == 4
+    assert "OK:" not in capsys.readouterr().out

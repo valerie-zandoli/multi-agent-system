@@ -5,7 +5,8 @@ Run it from the repository root, after copying `.env.example` to `.env` and past
     python scripts/check_key.py
 
 It sends one tiny request to the Claude API and prints a short result.  It never prints the key.
-Exit code:  0 = the key works; 1 = no key found; 2 = the API rejected the call; 3 = no connection.
+Exit code:  0 = the key works; 1 = no key found; 2 = the API rejected the call; 3 = no connection; 4 = invalid API response.
+Success confirms a direct Anthropic response, not the complete LiteLLM integration.
 
 The script uses only the Python standard library, so it needs no installed packages.
 """
@@ -94,6 +95,9 @@ def main(argv=None, opener=urllib.request.urlopen, environ=None):
         with opener(build_request(key, args.model), timeout=30) as response:
             payload = json.loads(response.read().decode("utf-8"))
             status = response.status
+    except (ValueError, UnicodeError):
+        print("Invalid API response: expected a UTF-8 JSON message with a nonempty text reply.")
+        return 4
     except urllib.error.HTTPError as error:
         print(f"Rejected:  HTTP {error.code}.  {HINTS.get(error.code, '')}".rstrip())
         detail = error_detail(error, key)
@@ -104,12 +108,30 @@ def main(argv=None, opener=urllib.request.urlopen, environ=None):
         print(f"Could not reach the API:  {redact(str(error), key)}")
         return 3
 
-    text = ""
-    for block in payload.get("content", []):
-        if block.get("type") == "text":
-            text = block.get("text", "").strip()
-            break
-    print(f"OK:  HTTP {status} from {args.model}." + (f"  Reply:  {redact(text, key)}" if text else ""))
+    if (
+        not isinstance(status, int) or not 200 <= status < 300
+        or not isinstance(payload, dict)
+        or "error" in payload
+        or not isinstance(payload.get("content"), list)
+    ):
+        print("Invalid API response: expected a successful message with a text reply.")
+        return 4
+
+    replies = []
+    for block in payload["content"]:
+        if not isinstance(block, dict) or not isinstance(block.get("type"), str):
+            print("Invalid API response: malformed content block.")
+            return 4
+        if block["type"] == "text":
+            if not isinstance(block.get("text"), str):
+                print("Invalid API response: malformed text reply.")
+                return 4
+            if block["text"].strip():
+                replies.append(block["text"].strip())
+    if not replies:
+        print("Invalid API response: no nonempty text reply received.")
+        return 4
+    print(f"OK:  HTTP {status} from {args.model}.  Reply:  {redact(' '.join(replies), key)}")
     return 0
 
 

@@ -6,7 +6,7 @@ Drafted 2026-10-22 by Valerie with Claude Code.  These notes go with the archite
 
 Project Resurrection is a research tool with one question:  how do food and usable habitat change whether a small Iberian lynx population survives?  Three AI roles prepare and check the work.  The **Researcher** builds a sourced parameter table.  The **Simulation Developer** writes and runs the model code.  The **Evaluator** checks the code and the results.  Ordinary code, the **harness**, passes the files between them, counts the rounds, and stops after round 3.
 
-The lynx and the rabbits are simulated entities inside ordinary Python code.  They are not AI agents, and the AI roles do not compare predator and prey numbers themselves.  Two coding assistants (Claude Code and Codex) help the two teammates write this repository; they are not part of the running system.
+The simulated lynx are individual animals inside ordinary Python code.  They are not AI agents, and the AI roles do not compare predator and prey numbers themselves.  Rabbits are a food amount (rabbits per hectare) that stays fixed in each run; a changing rabbit population model is a stretch goal if time allows.  Two coding assistants (Claude Code and Codex) help the two teammates write this repository; they are not part of the running system.
 
 Built today:  the file contracts (schemas and examples), the parameter validator, the content-hash checks, and the tests and CI.  Planned:  the simulation, the harness, the role agents, and the hand-back path.  A document that describes a planned part says so.
 
@@ -23,8 +23,8 @@ Built today:  the file contracts (schemas and examples), the parameter validator
 Each handoff carries a task, the context it needs, and the confidence of what it carries.  The field lists are in `docs/agent-handoffs.md`.
 
 - **Researcher to Developer** (`input.json`).  Task:  build the model and run the experiment grid.  Context:  the parameter table and the source registry, named by path and by content hash.  Confidence:  free text today; the planned fields are in `docs/handoff-decisions.md`.
-- **Developer to Evaluator** (`results.json`).  Task:  check this run.  Context:  the run ID, seed, configuration, and the same hashes.  Confidence:  `data_kind` says sample or simulation, and `historical_validation` stays `not_assessed` until the history test has run.
-- **Evaluator to Developer** (`evaluation.json`).  Task:  pass, revise, or stop.  Context:  each issue as a code, a message, and a requested change, with the round number.
+- **Developer to Evaluator** (`results.json`).  Task:  check this run.  Context:  the run ID, seed, configuration, and the same hashes.  Confidence:  the assumptions that the run lists in `results.json`, together with the research evidence behind the parameters (confidence fields planned).  `data_kind` says whether the file is a hand-written sample or a simulation output; it is provenance, not confidence.
+- **Evaluator to Developer** (`evaluation.json`).  Task:  pass, revise, or stop.  Context:  each issue as a code, a message, and a requested change, with the round number.  `historical_validation` is a field of `evaluation.json`, and it stays `not_assessed` until the history test has run.
 
 ## The shared state and who writes it
 

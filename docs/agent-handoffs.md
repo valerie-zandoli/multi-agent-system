@@ -80,10 +80,11 @@ A hash proves two agents read the same file, not that the file is correct. Check
 ## Check contracts locally
 
 ```bash
-pip install -r requirements-dev.txt -r requirements-handoffs.txt
+pip install -r requirements-dev.txt
 python -m pytest tests/test_handoffs.py
 ```
 
-The extra dependency file avoids changing shared setup files while the contract
-is under review. Without jsonschema these tests skip; install it to run them.
-The dedicated Handoff contracts CI workflow installs this dependency and runs the full test suite.
+`jsonschema` is a development dependency, so the required `tests` check runs
+these tests. A missing `jsonschema` makes them fail; it never skips them.
+The Handoff contracts CI workflow still installs `requirements-handoffs.txt`
+(the same pin) and runs the full test suite.

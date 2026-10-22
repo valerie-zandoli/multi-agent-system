@@ -18,7 +18,7 @@ female_home_range_overlap_index,low,Abstract only; no years or sample size.,not_
 male_home_range_km2,low,A single web summary that names no study.,none_identified,unknown,
 diet_rabbit_fraction,low,"Two sources agree on 80 to 99 or 100 percent, but neither names its study.",none_identified,unknown,
 rabbit_density_spring_min_for_territorial_breeding,low,Second-hand: the threshold is cited by the EU report from a paper we have not read.,source:palomares2001~source:palomares2005,palomares2001,palomares2005 found no reproduction effect of rabbit density from 4 to 55 per hectare.
-rabbit_density_autumn_min_for_territorial_breeding,low,Second-hand: the threshold is cited by the EU report from a paper we have not read.,none_identified,palomares2001,Unused while the density is constant within a run.
-food_level_low_rabbits_per_ha,low,An assumption anchored to a second-hand threshold.,none_identified,palomares2001,
+rabbit_density_autumn_min_for_territorial_breeding,low,Second-hand: the threshold is cited by the EU report from a paper we have not read.,not_checked,palomares2001,Unused while the density is constant within a run.  Set to not_checked:  the cited source (palomares2001) has not been read.
+food_level_low_rabbits_per_ha,low,An assumption anchored to a second-hand threshold.,not_checked,palomares2001,Set to not_checked:  the cited source (palomares2001) has not been read.
 food_level_medium_rabbits_per_ha,low,An assumption anchored to a second-hand threshold; the lowest spring density in palomares2005 is 4.0.,source:palomares2001~source:palomares2005,palomares2001;palomares2005,"Medium and high may match, as palomares2005 found no effect from 4 to 55."
 food_level_high_rabbits_per_ha,low,An assumption anchored to the highest density recorded in Coto del Rey.,none_identified,palomares2005,

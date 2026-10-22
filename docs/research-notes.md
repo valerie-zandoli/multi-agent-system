@@ -66,3 +66,7 @@ Drafted 2026-10-20 on branch `dev-valerie` by Valerie with Claude Code.  Nothing
 - palomares2005 reports lifetime output as 11 to 19 cubs in the abstract but at least 14, 8, and 19 in the text.
 - Disease, genetics, and maps are deferred by agreement.
 - Survival of released lynx was 56 to 83% (WWF conference conclusions 2019); this is not in the table because the model has no releases.
+
+## Source registry: the `origin` column (added 2026-10-22)
+
+`origin` names the study or dataset that a source's numbers come from.  A primary study lists its own key.  A source that repeats another study lists that study's key, or a short description when the study is not in the registry.  `unknown` means the source does not say.  Two sources with the same origin count as one confirmation (item 2 of the handoff build checklist, pull request 21; the validator does not check this yet).  The values for `eu_spain_report2018` and the four press items come from the quality notes and are not checked against the original documents.

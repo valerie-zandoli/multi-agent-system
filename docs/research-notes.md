@@ -66,3 +66,7 @@ Drafted 2026-10-20 on branch `dev-valerie` by Valerie with Claude Code.  Nothing
 - palomares2005 reports lifetime output as 11 to 19 cubs in the abstract but at least 14, 8, and 19 in the text.
 - Disease, genetics, and maps are deferred by agreement.
 - Survival of released lynx was 56 to 83% (WWF conference conclusions 2019); this is not in the table because the model has no releases.
+
+## Source registry: the `origin` column (added 2026-10-22)
+
+`origin` holds one or more stable origin IDs, separated by semicolons.  An origin ID is the registry key of the study or dataset that a source's numbers come from.  A primary study lists its own key.  A source that repeats other studies lists the key of each one; every ID has its own registry row, even when the study was named but not read (`how_read` says `NOT READ; named only`).  `unknown` means the source does not say, and it never counts as an independent origin.  The registry value is a menu of what a source reports, not a count:  `eu_spain_report2018` reports both Palomares 2001 and the 2017 census, which support different claims.  A planned `origin` column in the parameter table lists only the origins that support each row, and two sources with the same row-level origin count as one confirmation.  The rule is in `docs/handoff-decisions.md` (proposed); the validator does not apply it yet.  The IDs for the press items and for `eu_spain_report2018` come from the quality notes and are not checked against the original documents.

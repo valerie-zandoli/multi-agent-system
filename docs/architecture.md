@@ -17,7 +17,8 @@ Drafted 2026-10-22 by Valerie with Claude Code.  These notes go with the archite
 | Rule | Enforced by |
 |---|---|
 | Handoff files match the schema | CODE (validator) |
-| Run ID, seed, and hashes match across handoffs | CODE (`check_handoff_hashes`, pull request 9) |
+| Content hashes match across handoffs | CODE (`check_handoff_hashes`, pull request 9; it compares the hash fields only) |
+| Run ID, seed, and revision round match across handoffs | CODE, planned (not built; `check_handoff_hashes` does not check them) |
 | Parameter files unchanged since the input | CODE (`check_files_current`, pull request 9) |
 | Maximum 3 revision rounds, then stop and report | CODE (harness) |
 | Generated code runs under the execution rules | CODE (`docs/execution-sandbox.md`) |

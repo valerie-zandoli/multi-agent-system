@@ -2,7 +2,7 @@ name: Handoff contracts
 on:
   pull_request:
   push:
-    branches: [dev-anastasiya]
+    branches: [develop]
 permissions:
   contents: read
 jobs:

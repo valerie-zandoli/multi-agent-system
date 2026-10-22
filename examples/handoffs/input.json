@@ -6,7 +6,9 @@
   "duration_months": 1,
   "start_month": 1,
   "parameters_csv": "data/parameters/iberian_lynx_baseline.csv",
+  "parameters_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
   "sources_csv": "data/parameters/sources.csv",
+  "sources_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
   "initial_population": {
     "females": 10,
     "males": 10,

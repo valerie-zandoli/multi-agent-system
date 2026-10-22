@@ -1,6 +1,6 @@
 # Handoff decisions (PROPOSED)
 
-Drafted 2026-10-22 by Valerie with Claude Code.  These are Valerie's proposed answers to items 1 to 9 of Anastasiya's review of pull request 21, and the failure behavior that the tutor asked to carry into the PRD.  Nothing here is agreed until Anastasiya says yes, and nothing here is built.  Every number marked (guess) is a guess until the first real runs measure it.
+Drafted 2026-10-22 by Valerie with Claude Code; clarification and failure wording revised with Anastasiya. This document proposes the research contract and harness behavior for partner review. User-approved simulator assumptions remain valid unless explicitly superseded. The checks and policies described here must not be claimed as implemented until verified in code. Numbers marked (guess) are provisional; measured outcomes are recorded separately.
 
 ## Research contract
 
@@ -12,17 +12,20 @@ Drafted 2026-10-22 by Valerie with Claude Code.  These are Valerie's proposed an
 
 - A case is one run chain, from the first `input.json` until pass or stop.  A deliberate change to the research files starts a new run (round 0) inside the same case; the clarification budget carries over.
 - Each case gets one Researcher round, shared by the Developer and the Evaluator, and it batches every open parameter.  The budget is separate from developer revisions 1 to 3.
-- A request names the parameter, what is missing, whether the gap is required or optional, and who filed it.
-- A required gap is a missing or `low`-confidence value for a parameter that an experiment cannot run without, or any gap the Evaluator marks blocking.  An optional gap affects a sensitivity run only; it is logged as a limitation.
-- The round resolves a gap when the Researcher returns the value with source, origin, confidence, reason, and `contradicts`, and the validator accepts it.
+- A request names the case and run IDs, parameter, missing information, required or optional classification, reason for that classification, who filed it, and the evidence or correction needed for resolution.
+- A required gap prevents a defined experiment from running or being interpreted under its agreed assumptions: for example, a missing value or unit, an invalid range, an unresolved contradiction with no agreed scenario treatment, or a specific scientific defect documented by the Evaluator. An optional gap does not prevent the agreed experiment; log its effect and limitations.
+- Low confidence alone does not make a gap blocking. An explicitly approved provisional value may be used with its source-access caveats, rationale, and agreed sensitivity range. In particular, the agreed post-dispersal annual mortality of 0.37 with sensitivity 0.10–0.50 is not rejected solely because its evidence is an older abstract. The Evaluator may identify a specific additional defect, but must explain it rather than treating the label itself as failure. This does not waive schema validation or the separately agreed audit policy.
+- Resolution requires a documented answer that addresses the request, complete handoff fields, and passing structural/reference checks. Appropriate answers include correcting units, locating a passage in an existing source, recording a contradiction with an agreed scenario treatment, supplying new evidence, or documenting an explicitly approved assumption. Preserve unknown provenance as unknown; do not invent a source or independent origin for an assumption.
+- A new independent origin is required only when the request specifically concerns missing independent support. The validator checks fields and references; the Evaluator reviews whether the answer addresses the scientific gap. Human approval is needed for a new assumption or change in scope. Neither a validator pass nor a confidence label alone establishes scientific resolution.
 - A required gap that remains after the round, or a new required gap after the round, stops the case and reports to both owners.  An optional gap never stops a case.
 
 ## Failure behavior (for the PRD)
 
-- **Hand back, once.**  The Researcher holds the evidence, and a fresh Researcher run is cheap.  This is the clarification round above.
-- **Escalate** to a person (Valerie and Anastasiya) with the table and the request attached when a claim stays unresolved after the round.  The run stays held.
-- **Fail explicitly, with no retry,** for faults that more evidence cannot fix:  a changed parameter file or a schema mismatch (both built), a killed run, and an unresolved issue at revision round 3 (both planned).
-- A "settled" claim needs a new origin that the code derives from the fetched page.  A person audits 10 settled rows before each experiment batch.  If fewer than 6 of the first 20 hand-backs return a new source that settles the claim (guess), the default switches to escalate.
+- **Hand back, once.** Use the single batched Researcher round for gaps that evidence or clarification can address. The request specifies what would resolve the gap; it does not require a new study by default.
+- **Escalate** to Valerie and Anastasiya if a required gap remains or a new required gap appears after the clarification round. Stop the case with its table, request, response, and unresolved reason preserved. Human review may authorize a revised experiment, but never silently resets the exhausted case budget. Optional gaps remain disclosed limitations.
+- **Reject the affected artifact or attempt without transient retry** for a schema mismatch, stale input file, killed run, or unresolved developer issue at revision round 3. Report the specific reason. Existing schema/hash helpers support some checks; end-to-end harness enforcement remains to be built. A deliberate research correction uses a fresh validated input and run ID while retaining the same case-level clarification budget.
+- Record clarification outcome as `resolved_with_evidence`, `resolved_with_approved_assumption`, or `unresolved`, with the evidence/correction, reviewer, and reason. An approved assumption remains labeled as an assumption; it is not a verified scientific fact. Code may check source references and recorded provenance but cannot establish scientific independence merely by extracting a page identifier.
+- Keep the primary-source audit below separate from clarification success. As a provisional operational check, if fewer than 6 of the first 20 clarification cases resolve their required gaps (guess), review the hand-back policy with both owners before later cases. Report evidence-based and assumption-based resolutions separately. Do not penalize successful clarification solely because it reused an existing source, and do not change the held-out historical tolerance in response to these outcomes.
 
 ## Hashes
 

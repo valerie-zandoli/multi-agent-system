@@ -1,4 +1,4 @@
-# Project rules for coding tools
+# Project Resurrection: rules for coding tools
 
 Claude Code and Codex both read these rules (`CLAUDE.md` imports this file).  Change the rules here, not in a tool-specific file.
 

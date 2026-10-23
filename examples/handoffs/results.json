@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "run_id": "sample-001",
   "data_kind": "sample",
   "seed": 42,
@@ -61,145 +61,166 @@
       "sex": "female",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-02",
       "sex": "female",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-03",
       "sex": "female",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-04",
       "sex": "female",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-05",
       "sex": "female",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-06",
       "sex": "female",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-07",
       "sex": "female",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-08",
       "sex": "female",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-09",
       "sex": "female",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "female-10",
       "sex": "female",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": true
     },
     {
       "id": "male-01",
       "sex": "male",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-02",
       "sex": "male",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-03",
       "sex": "male",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-04",
       "sex": "male",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-05",
       "sex": "male",
       "age_months": 37,
       "patch_id": "A",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-06",
       "sex": "male",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-07",
       "sex": "male",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-08",
       "sex": "male",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-09",
       "sex": "male",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": false
     },
     {
       "id": "male-10",
       "sex": "male",
       "age_months": 37,
       "patch_id": "B",
-      "alive": true
+      "alive": true,
+      "settled": false
     }
   ],
   "persisted": true,
   "assumptions": [
     "Hand-authored sample; no simulation or biological validation has run.",
-    "Patch areas, habitat scores and equal allocation are illustrative assumptions."
+    "Patch areas, habitat scores and equal allocation are illustrative assumptions.",
+    "Starting females hold five territories in each patch; males use no female slots. Food is excluded from endpoint persistence eligibility."
   ]
 }

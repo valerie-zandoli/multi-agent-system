@@ -1,4 +1,4 @@
-# Draft agent handoffs — version 1.0
+# Agent handoffs — results version 2.0
 
 For Valerie and Anastasiya to review before simulation integration. JSON Schemas
 in `schemas/` define the shapes; matching examples live in `examples/handoffs/`.
@@ -26,10 +26,43 @@ experiment duration is 120 months, but the example uses one month for inspection
 Record the random seed and full configuration in results. Reproduction rules,
 food/habitat effects, and any parameter overrides need agreement before runs.
 
-The proposed persistence rule is a living breeding-capable male and female in
-at least one shared patch at the endpoint. Determine breeding eligibility from
-the parameter specification; this is an endpoint measure, not long-term viability.
-Valerie must review this definition before experiments.
+## Agreed persistence and settlement
+
+Agreed by Valerie and Anastasiya on October 22, 2026: persistence requires at
+least one living breeding-age female that holds a territory and one living
+breeding-age male in the same patch at the endpoint (`duration_months`, 120 in
+the main experiment). Use the parameter table's inclusive breeding-age bounds,
+converting years to months; baseline bounds are 36–108 months for both sexes.
+Food availability is excluded from this endpoint eligibility and affects
+reproduction separately. Report births in the final 12 months alongside
+persistence so surviving pairs without recent reproduction remain visible.
+This endpoint does not establish long-term viability.
+
+Every entry in `final_animals` requires a boolean `settled`:
+
+- A living female is `true` after acquiring a free female territory. Starting
+  females are `true`: five occupied territories per patch.
+- Young females are `false` until dispersal and successful settlement. Unsettled
+  females stay alive under the agreed all-cause mortality.
+- Males are always `false` because they use no female territory slots. Their
+  `settled` value is not an eligibility requirement for persistence.
+- A female retains her territory while alive unless an agreed movement rule
+  changes it. Death frees the slot and sets `settled` to `false`. Dead animals
+  remain in the final list, retaining age and patch at death.
+
+The schema rejects missing/nonboolean `settled` values and rejects `true` for a
+male or dead animal. This is results schema version **2.0**, a breaking change
+from 1.0; input, embedded configuration, and evaluation remain version 1.0.
+Old results must not be accepted by silently treating missing `settled` as true
+or falling back to the weaker pair-only rule. Regenerate or explicitly migrate
+old artifacts from known territory states; do not infer them from sex alone.
+
+The future Evaluator must recompute `persisted` from final states. Actual
+settlement transitions, territory-capacity checks, age eligibility, persistence
+recomputation, and the final-12-month births summary still require simulator/
+Evaluator implementation and tests. Schema validation does not prove any of
+those behaviors. Settlement retry order and cross-patch female movement remain
+separate open conventions; this agreement does not settle them.
 
 ## Results
 

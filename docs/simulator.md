@@ -77,6 +77,8 @@ yet. **TESTED ONLY** remains the status of that integration. This code is not
 an execution sandbox. Live generated-code execution still follows the isolation
 plan and human-review requirement in `execution-sandbox.md`.
 
+**Contract freeze (proposed).**  The input, results, and evaluation schemas changed twice in two days (results went from 2.0 to 3.0).  Before the first final run (100 pilot and 500 final trials per cell), both owners freeze them.  After the freeze, a change needs a version bump and both owners' agreement, so the Evaluator never checks against a moving schema.
+
 Next work: agree the conventions; independent Evaluator checks; repeated-trial
 aggregation/uncertainty; sensitivity orchestration; graphs; and a separate
 historical initializer/test. Capacity-limited sensitivity settings that cannot

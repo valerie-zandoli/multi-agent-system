@@ -17,6 +17,7 @@ Their use in code or tests is not scientific approval.
 These are written here so that nobody has to read the code to learn them.  Each is a convention to agree, not a measured fact.
 
 - **Male crossing starts at the breeding minimum age.**  Only males aged 36 months or more (`breeding_age_min`) can cross to the other patch, with the agreed probability of 0.10 a month.  Younger males stay in their patch.
+- **A settled female keeps her territory until she dies,** even after she passes the maximum breeding age (108 months).  An old female can therefore hold a slot that a young female is waiting for, which changes when vacancies open and how fast the population can grow.
 
 ## Try after reviewing the model code
 

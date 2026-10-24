@@ -12,6 +12,12 @@ monthly settlement attempts in seeded random order, current patch then other
 patch. The required `--preview` flag acknowledges those unresolved conventions.
 Their use in code or tests is not scientific approval.
 
+## Conventions in the code that the plan did not spell out
+
+These are written here so that nobody has to read the code to learn them.  Each is a convention to agree, not a measured fact.
+
+- **Male crossing starts at the breeding minimum age.**  Only males aged 36 months or more (`breeding_age_min`) can cross to the other patch, with the agreed probability of 0.10 a month.  Younger males stay in their patch.
+
 ## Try after reviewing the model code
 
 Use the repository Python 3.12 environment and install `requirements.txt` plus

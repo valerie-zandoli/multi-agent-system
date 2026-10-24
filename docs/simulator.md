@@ -67,8 +67,12 @@ Newborns are age 0 at birth and face their first survival risk next month.
 
 `random.Random(seed)` is local to each run. Replays require the same Python
 version, configuration, parameter files, and code. The future multi-trial runner
-must define trial-seed derivation; no outcome-based reruns or failed-trial removal
-are implemented here. Errors stop the single run without retry.
+must define trial-seed derivation (the proposal in `model-conventions.md`, section 4:
+each trial's seed comes from the run seed, the cell name, and the trial number by one
+documented rule); no outcome-based reruns or failed-trial removal are implemented
+here. Errors stop the single run without retry.  Replays are checked on Python 3.12
+only; a different Python version can change the random stream, so the version is
+part of what a replay needs.
 
 ## Evidence and remaining work
 
